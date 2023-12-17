@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
+// import { styled } from 'styled-components';
 import Button from './Button';
 import Input from './Input'
 
 
 
-const ControlContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-`;
+// const ControlContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0.5rem;
+//   margin-bottom: 1.5rem;
+// `;
 
 function CustomInputField() {
   const [enteredEmail, setEnteredEmail] = useState('');
@@ -34,11 +34,19 @@ function CustomInputField() {
 
   return (
     <div id="auth-inputs">
-      <ControlContainer>
+      {/* <ControlContainer> */}
+      <div
+      id="auth-inputs"
+      className="w-full max-w-sm p-8 mx-auto rounded shadow-md bg-gradient-to-b from-stone-700 to-stone-800"
+    >
+      <div className="flex flex-col gap-2 mb-6">
         <Input
           label="Email"
           invalid={emailNotValid}
           type="email"
+          // style={{
+          //   backgroundColor: emailNotValid ? '#fed2d2' : '#d1d5db'
+          // }}
           onChange={(event) => handleInputChange('email', event.target.value)}
         />
         <Input
@@ -49,14 +57,23 @@ function CustomInputField() {
             handleInputChange('password', event.target.value)
           }
         />
-      </ControlContainer>
-      <div className="actions">
+      </div>
+     
+ 
+        </div>
+      {/* </ControlContainer> */}
+      <div className="flex justify-end gap-4">
+        <button type="button" className="text-amber-400 hover:text-amber-500">
+          Create a new account
+        </button>
+        <Button onClick={handleLogin}>Sign In</Button>
+      </div>
+      {/* <div className="actions">
         <button type="button" className="text-button">
           Create a new account
         </button>
         <Button onClick={handleLogin}>Sign In</Button>
-       
-      </div>
+      </div> */}
     </div>
   );
 }
