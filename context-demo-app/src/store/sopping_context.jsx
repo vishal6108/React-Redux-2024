@@ -36,7 +36,7 @@ function shoppingCartReducer(state, action) {
     }
 
     return {
-      ...state, // not needed here because we have only one value
+      ...state,
       items: updatedItems,
     };
   }
