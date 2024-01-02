@@ -9,13 +9,15 @@ const app = express();
 app.use(express.static(path.join(__dirname, "/assets")));
 console.log(path.join(__dirname, "/assets"));
 // app.use(express.static("/assets"));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //basically tells the system that you want json to be used.
+
+// bodyParser.urlencoded({extended: ...}) basically tells the system whether you want to use a
+// simple algorithm for shallow parsing (i.e. false) or complex algorithm for deep parsing that can deal with nested objects (i.e. true).
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); // allow all domains
   res.setHeader("Access-Control-Allow-Methods", "GET, PUT");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
   next();
 });
 
