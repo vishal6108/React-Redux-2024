@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import NavBar from "../navBar";
+import NavBar from "../components/nav_bar";
 
 function RootPage() {
   // const navigation = useNavigation();

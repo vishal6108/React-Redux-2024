@@ -21,20 +21,26 @@
 // BONUS: Add another (nested) layout route that adds the <EventNavigation> component above all /events... page components
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./components/pages/home_page";
-import RootPage from "./components/pages/root_page";
-import EventsRootLayout from "./components/pages/EventsRoot";
-import EventsPage, { loader as eventsLoader } from "./components/pages/Events";
+import HomePage from "./pages/home_page";
+import RootPage from "./pages/root_page";
+import EventsRootLayout from "./pages/EventsRoot";
+import EventsPage, { loader as eventsLoader } from "./pages/Events";
 import EventDetailPage, {
   loader as eventDetailsLoader,
-} from "./components/pages/EventDetail";
-import NewEventPage from "./components/pages/NewEvent";
-import EditEventPage from "./components/pages/EditEvent";
+  action as deleteEventAction,
+} from "./pages/EventDetail";
+import NewEventPage, { action as newEventAction } from "./pages/NewEvent";
+import EditEventPage from "./pages/EditEvent";
+import ErrorPage from "./pages/Error";
+import NewsletterPage, { action as newsletterAction } from "./pages/newsletter";
+import { action as manipulateEventAction } from "./components/event_form";
+
 function App() {
   const route = createBrowserRouter([
     {
       path: "/",
       element: <RootPage />,
+      errorElement: <ErrorPage />,
       children: [
         { index: true, element: <HomePage /> },
         {
@@ -44,17 +50,32 @@ function App() {
             { index: true, element: <EventsPage />, loader: eventsLoader },
             {
               path: ":eventId",
+              id: "event-detail",
               loader: eventDetailsLoader,
               children: [
                 {
                   index: true,
                   element: <EventDetailPage />,
+                  action: deleteEventAction,
                 },
-                { path: "edit", element: <EditEventPage /> },
+                {
+                  path: "edit",
+                  element: <EditEventPage />,
+                  action: manipulateEventAction,
+                },
               ],
             },
-            { path: "new", element: <NewEventPage /> },
+            {
+              path: "new",
+              element: <NewEventPage />,
+              action: manipulateEventAction,
+            },
           ],
+        },
+        {
+          path: "newsletter",
+          element: <NewsletterPage />,
+          action: newsletterAction,
         },
       ],
     },
